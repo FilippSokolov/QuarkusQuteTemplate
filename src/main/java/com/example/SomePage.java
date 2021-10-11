@@ -1,8 +1,10 @@
 package com.example;
 
+import io.quarkus.qute.CheckedTemplate;
 import io.quarkus.qute.Template;
 import io.quarkus.qute.TemplateInstance;
 
+import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -14,16 +16,23 @@ import static java.util.Objects.requireNonNull;
 @Path("/some-page")
 public class SomePage {
 
-    private final Template page;
+    @Inject
+    Template page;
 
     public SomePage(Template page) {
         this.page = requireNonNull(page, "page is required");
     }
+//
+//    @CheckedTemplate
+//    public static class Templates {
+//        public static native TemplateInstance name(String name);
+//    }
 
     @GET
     @Produces(MediaType.TEXT_HTML)
-    public TemplateInstance get(@QueryParam("name") String name) {
-        return page.data("name", name);
+    public TemplateInstance get(@QueryParam("name") String _name) {
+        return page.data("_name", _name);
     }
+
 
 }

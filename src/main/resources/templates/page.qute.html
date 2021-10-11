@@ -2,7 +2,8 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Hello {name ?: "Qute"}</title>
+    {!<title>Hello {name ?: "Qute"}</title>  !}
+    <title>{#insert title}Default Title {/}</title>
     <style>
         body {
             background-color: #000;
@@ -20,12 +21,39 @@
     </style>
 </head>
 <body>
-<h1>Hello <b>{name ?: "QuteTEST"}</b></h1>
-<h1>Hello <b>{name}</b></h1>
+{#insert foo limit=10 /}
+{!<h1>Hello <b>{name ?: "QuteTEST"}</b></h1>!}
+{!<h1>Hello <b>{name}</b></h1>!}
+
+{!{#for item in items}!}
 <h1>Hello <b>{! name !}</b></h1>
-<h1>Hello <b>{name}</b></h1>
+{!<h1>Hello <b>{_name}</b></h1>!}
+
+{!<h1>Hello <b>\{test}</b></h1>!}
+
+<h1>Hello <b>{_name or 'John'}</b></h1>
+{!<h1>Hello <b>{123name}</b></h1>!}
+{!{name}!}
+{!{item.name}!}
+{!{item['name']}!}
+{!{global:colors}!}
+
+{#with null}
+<h1>{_name}</h1>
+{!<p>{description}</p>!}
+{/with}
+
+{!{#when machine.status}!}
+{!{#is ON}!}
+{!It's running.!}
+{!{#is in OFF BROKEN}!}
+{!It's broken or OFF.!}
+{!{/when}!}
 
 <p>Create your web page using Quarkus RESTEasy & Qute</p>
+{!<li>{item.name} {#if item.active}{item.price}{/if}</li>!}
+{#for}
+{/for}
 {!{[ <script>if(true){alert('Qute is cute!')};</script> ]}!}
 </body>
 {!<body>!}
